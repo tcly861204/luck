@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>幸运大抽奖</title>
+    <style type="text/css">
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            padding: 2rem 0 0 0;
+            box-sizing: border-box;
+            overflow: hidden;
+            position: relative;
+            margin: 0;
+            padding: 0;
+            border: 0;
+        }
+        
+        div,
+        img,
+        dl,
+        dt,
+        dd {
+            margin: 0;
+            padding: 0;
+            border: 0;
+        }
+    </style>
+    <script type="text/javascript">
+        (function() {
+            var dpr = 1 / window.devicePixelRatio;
+            document.write('<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=' + dpr + ',minimum-scale=' + dpr + ',maximum-scale=' + dpr + '" />');
+            var fz = document.documentElement.clientWidth / 15;
+            document.getElementsByTagName('html')[0].style.fontSize = fz + 'px';
+            window.onload = function() {
+                var mask = document.getElementById('mask');
+                if (dpr === 1 && document.documentElement.clientWidth > 750) {
+                    mask.style.display = "block";
+                } else {
+                    mask.style.display = "none";
+                }
+            }
+        })();
+    </script>
+    <style>
+        h2 {
+            font-size: 1.5rem;
+            text-align: center;
+            color: deeppink;
+        }
+        
+        .box {
+            width: 12.8rem;
+            height: 12.8rem;
+            margin: 0 auto;
+            position: relative;
+        }
+        
+        .box .arrow {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin: -2.52rem 0 0 -2.52rem;
+            width: 5.04rem;
+            height: 5.04rem;
+            background: url("./img/arrow.png") no-repeat 0 0;
+            background-size: cover;
+            z-index: 9999;
+        }
+        
+        .box .lanren {
+            width: 12.8rem;
+            height: 12.8rem;
+        }
+        
+        .box .lanren img {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+        
+        #mask {
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+        }
+        
+        #mask dl {
+            width: 235px;
+            height: 255px;
+            position: absolute;
+            margin: auto;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: #fff;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        #mask dl dt {
+            width: 235px;
+            height: 218px;
+        }
+        
+        #mask dl dd {
+            width: 210px;
+            height: 25px;
+            line-height: 25px;
+            margin: 0 auto;
+            text-align: center;
+            background: #333;
+            font-size: 14px;
+            color: #fff;
+            border-radius: 15px;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>幸运大抽奖</h2>
+    <div class="box">
+        <div class="arrow"></div>
+        <div class="lanren"><img src="./img/lanren.png" /></div>
+    </div>
+    <script type="text/javascript">
+        var start = document.querySelector('.box'),
+            lanImg = document.querySelector('img');
+        var flag = false;
+        var prizeMap = [
+            [3600, "10M流量"],
+            [3660, "20元话费"],
+            [3720, "ipad mini4"],
+            [3780, "5元话费"],
+            [3840, "30M流量"],
+            [3900, "iphone 7"]
+        ];
+        var deg = 0;
+        start.addEventListener('touchstart', function() {
+            if (!flag) {
+                flag = !flag;
+                deg = Math.floor(Math.random() * 6);
+                lanImg.style.transform = "rotate(" + prizeMap[deg][0] + "deg)";
+                lanImg.style.transition = "all 5s ease-in-out";
+            }
+        }, false);
+        lanImg.addEventListener('transitionend', function() {
+            flag = !flag;
+            lanImg.style.transition = "none";
+            lanImg.style.transform = "rotate(" + deg * 60 + "deg)";
+            alert("恭喜你获得" + prizeMap[deg][1]);
+        }, false);
+    </script>
+    <div id="mask">
+        <dl>
+            <dt><img src="./img/eweima.png"/></dt>
+            <dd>扫一扫手机打开浏览效果更好</dd>
+        </dl>
+    </div>
+</body>
+
+</html>
